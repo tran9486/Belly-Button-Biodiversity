@@ -25,38 +25,30 @@ function init () {
                     }
                 }]
                 Plotly.newPlot("bubble", bubbleData)
+
+                var newIds = [];
+
+                otu_ids.forEach(id => {
+                    newIds.push("OTU " + String(id));
+                })
+
+                var barData = [{
+                    x:sample_values.slice(0,10).reverse(),
+                    y:newIds.slice(0,10).reverse(),
+                    text: otu_labels.slice(0,10).reverse(),
+                    type: "bar",
+                    orientation: "h"
+                }]
+
+                Plotly.newPlot("bar", barData)
             }
         })
-        
-        var barData = [{
-            x:[163, 126, 113, 78, 71, 51, 50, 47, 40, 40].reverse(),
-            y:['OTU 1167', 'OTU 2859', 'OTU 482', 'OTU 2264', 'OTU 41', 'OTU 1189', 'OTU 352', 'OTU 189', 'OTU 2318', 'OTU 1977'].reverse(),
-            text: ["Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Porphyromonadaceae;Porphyromonas", "Bacteria;Firmicutes;Clostridia;Clostridiales;IncertaeSedisXI;Peptoniphilus", "Bacteria", "Bacteria;Firmicutes;Clostridia;Clostridiales;IncertaeSedisXI", "Bacteria", "Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Porphyromonadaceae;Porphyromonas", "Bacteria", "Bacteria", "Bacteria;Firmicutes;Clostridia;Clostridiales;IncertaeSedisXI;Anaerococcus", "Bacteria;Firmicutes;Clostridia;Clostridiales"].reverse(),
-            type: "bar",
-            orientation: "h"
-        }]
 
-        Plotly.newPlot("bar", barData)
-
-        
-
-        
-        
         var dropDown = d3.select("#selDataset");
         data.names.forEach(person => {
             dropDown.append("option").text(person).attr(person);
         })
     });
-
-    var demographic = d3.select(".panel-body");
-    demographic.selectAll("p").remove();
-    demographic.append("p").text("id: 940");
-    demographic.append("p").text("ethnicity: Caucasian");
-    demographic.append("p").text("gender: F");
-    demographic.append("p").text("age: 24");
-    demographic.append("p").text("location: Beaufort/NC");
-    demographic.append("p").text("bbtype: I");
-    demographic.append("p").text("wfreq: 2");
 }
 
 d3.selectAll("#selDataset").on("change", newPerson);
@@ -84,8 +76,6 @@ function newPerson() {
                 var otu_ids = set.otu_ids;
                 var otu_labels = set.otu_labels;
 
-
-
                 updatePlot(sample_values, otu_ids, otu_labels);
             }
         })
@@ -104,8 +94,6 @@ function updatePlot(sample_values, otu_ids, otu_labels) {
     tenIds.forEach(id => {
         newIds.push("OTU " + String(id));
     })
-
-
 
     Plotly.restyle("bar", "x", [tenSamples]);
     Plotly.restyle("bar", "y", [newIds]);
