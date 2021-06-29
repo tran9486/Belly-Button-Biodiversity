@@ -24,6 +24,7 @@ function init () {
                         size:sample_values
                     }
                 }]
+
                 Plotly.newPlot("bubble", bubbleData)
 
                 var newIds = [];
