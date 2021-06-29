@@ -1,5 +1,5 @@
 function init () {
-    d3.json("../../samples.json").then((data) => {
+    d3.json("../../data/samples.json").then((data) => {
         data.metadata.forEach(demo => {
             if (String(demo.id) === "940") {
                 var demographic = d3.select(".panel-body");
@@ -59,7 +59,7 @@ function newPerson() {
     var dropDown = d3.select("#selDataset");
     var dataset = dropDown.property("value");
 
-    d3.json("../../samples.json").then((data) => {
+    d3.json("../../data/samples.json").then((data) => {
         data.metadata.forEach(demo => {
             if (String(demo.id) === dataset) {
                 var demographic = d3.select(".panel-body");
